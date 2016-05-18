@@ -13,17 +13,17 @@ let run = function(value, validator) {
     }
 
     if (typeof validator === 'object') {
+        if (validator instanceof Wrapper) {
+            return validator.run(value);
+        }
+
         return Object.keys(validator).every((key) => {
             return run(value[key], validator[key]);
         });
     }
 
     if (typeof validator !== 'function') {
-        throw false;
-    }
-
-    if (validator instanceof Wrapper) {
-        return validator.run(value);
+        return false;
     }
 
     switch (validator) {

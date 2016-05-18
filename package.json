@@ -1,6 +1,6 @@
 {
   "name": "powercheck",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Powerful JavaScript type checking utility",
   "main": "powercheck.js",
   "scripts": {
