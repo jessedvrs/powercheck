@@ -1,0 +1,31 @@
+{
+  "name": "powercheck",
+  "version": "1.0.0",
+  "description": "Powerful JavaScript type checking utility",
+  "main": "powercheck.js",
+  "scripts": {
+    "compile": "babel --presets es2015 --plugins add-module-exports --out-file powercheck.js < src/index.js",
+    "prepublish": "npm run compile"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jessedvrs/powercheck.git"
+  },
+  "keywords": [
+    "validator",
+    "type check",
+    "instance check",
+    "arguments"
+  ],
+  "author": "Jesse de Vries",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jessedvrs/powercheck/issues"
+  },
+  "homepage": "https://github.com/jessedvrs/powercheck#readme",
+  "devDependencies": {
+    "babel-cli": "^6.9.0",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-preset-es2015": "^6.9.0"
+  }
+}
