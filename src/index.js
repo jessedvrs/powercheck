@@ -64,8 +64,8 @@ run.optional = (validator) => {
     });
 };
 
-run.throw = (value, validator) => {
+run.throw = (value, validator, error) => {
     if (!run(value, validator)) {
-        throw new Error('Check failed');
+        throw new Error(error || 'Powercheck failed');
     }
 };
