@@ -13,7 +13,7 @@ Usage
 -----
 
 ```js
-import check, {equals, validate, optional, throw as checkThrow} from 'powercheck';
+import check from 'powercheck';
 
 check('foo', String);
     // -> true
@@ -24,18 +24,18 @@ check(new Date(), Date);
 check(new SomeConstructor(), SomeConstructor);
     // -> true
 
-check('foo', equals('bar'));
+check('foo', check.equals('bar'));
     // -> false
 
-check(undefined, optional(String));
+check(undefined, check.optional(String));
     // -> true
 
-check('foo', validate((value) => {
+check('foo', check.validate((value) => {
     return ['foo', 'bar'].indexOf(value) > -1;
 }));
     // -> true
 
-checkThrow('foo', Number);
+check.throw('foo', Number);
     // -> throws an exception
 ```
 
