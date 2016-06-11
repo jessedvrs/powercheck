@@ -29,6 +29,8 @@ let run = function(value, validator) {
     switch (validator) {
         case String:
             return typeof value === 'string';
+        case Boolean:
+            return typeof value === 'boolean';
         case Number:
             return typeof value === 'number';
         case Object:
