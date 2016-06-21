@@ -7,9 +7,9 @@ const Wrapper = class CheckWrapper {
     }
 };
 
-let run = function(value, validator) {
+const run = function(value, validator) {
     if (!validator) {
-        return false;
+        throw invalidValidator();
     }
 
     if (typeof validator === 'object') {
@@ -20,7 +20,7 @@ let run = function(value, validator) {
         if (Array.isArray(validator)) {
             const arrayItemValidator = validator[0];
             if (!arrayItemValidator) {
-                return false;
+                throw invalidValidator();
             }
 
             return run(value, Array) && value.every((val) => {
@@ -34,7 +34,7 @@ let run = function(value, validator) {
     }
 
     if (typeof validator !== 'function') {
-        return false;
+        throw invalidValidator();
     }
 
     switch (validator) {
@@ -79,6 +79,10 @@ run.optional = (validator) => {
 
 run.throw = (value, validator, error) => {
     if (!run(value, validator)) {
-        throw new Error(error || 'Powercheck failed');
+        throw new Error(error || 'Powercheck: validation failed');
     }
+};
+
+const invalidValidator = () => {
+    return new Error('Powercheck: invalid validator');
 };
