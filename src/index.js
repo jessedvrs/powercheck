@@ -40,7 +40,7 @@ powercheck.equals = (compareValue) => {
 
 // Alternative use of the utility,
 // throwing an exception instead of returning a boolean.
-powercheck.throw = (value, validator, error) => {
+powercheck.throw = (value, validator, customError) => {
     const result = _run(value, validator);
 
     if (result instanceof _Failure) {
@@ -48,16 +48,16 @@ powercheck.throw = (value, validator, error) => {
         // Get an understandable clue about the error.
         result.clue = _getErrorClue(value, result);
 
-        // The optional `error` argument can be a function.
-        // The given function will then receive an object with error info
-        // as first argument. And we expect it to return anything
-        // to be wrapped in `new Error()`.
-        if (typeof error === 'function') {
-            error = error(value, result);
+        // The optional `customError` argument can be a function.
+        // The given function will then receive the value as first argument
+        // and an object with error info as second argument. We expect it
+        // to return anything to be wrapped in `new Error()`.
+        if (typeof customError === 'function') {
+            customError = customError(value, result);
         }
 
         // Make the utility throw an exception.
-        throw new Error(error || `Powercheck: validation failed. ${result.clue || ''}`);
+        throw new Error(customError || `Powercheck: validation failed. ${result.clue || ''}`);
     }
 };
 
