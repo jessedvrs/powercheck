@@ -17,6 +17,17 @@ let run = function(value, validator) {
             return validator.run(value);
         }
 
+        if (Array.isArray(validator)) {
+            const arrayItemValidator = validator[0];
+            if (!arrayItemValidator) {
+                return false;
+            }
+
+            return run(value, Array) && value.every((val) => {
+                return run(val, arrayItemValidator);
+            });
+        }
+
         return Object.keys(validator).every((key) => {
             return run(value[key], validator[key]);
         });
