@@ -73,7 +73,7 @@ run.equals = (compare) => {
 
 run.optional = (validator) => {
     return new Wrapper('optional', (value) => {
-        return !value || run(value, validator);
+        return typeof value === 'undefined' || run(value, validator);
     });
 };
 
