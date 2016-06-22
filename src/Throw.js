@@ -16,7 +16,7 @@ import validate from './validate';
  * @param {any} customError When a function is specified: (value, error) => {any}
  * @returns {Boolean|Exception} Whether the value passes the validator
  */
-module.exports = function powercheckThrow(value, validator, customError) {
+export default function powercheckThrow(value, validator, customError) {
     var result = check(value, validator);
 
     if (result instanceof _Failure) {
@@ -37,6 +37,8 @@ module.exports = function powercheckThrow(value, validator, customError) {
     }
 };
 
+// Support ES6 modules
+module.exports = powercheckThrow;
 module.exports.optional = optional;
 module.exports.equals = equals;
 module.exports.validate = validate;
