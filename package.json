@@ -1,10 +1,10 @@
 {
   "name": "powercheck",
   "version": "1.1.0",
-  "description": "Powerful JavaScript type checking utility",
+  "description": "Straightforward, zero-dependencies and powerful utility to check types, instances or values",
   "main": "powercheck.js",
   "scripts": {
-    "compile": "babel --presets es2015 --plugins add-module-exports --out-file powercheck.js < src/index.js",
+    "compile": "babel src/*.js --presets es2015 --plugins add-module-exports --out-dir ../",
     "prepublish": "npm run compile"
   },
   "repository": {
