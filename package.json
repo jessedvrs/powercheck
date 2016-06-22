@@ -1,6 +1,6 @@
 {
   "name": "powercheck",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Straightforward, zero-dependencies and powerful utility to check types, instances or values",
   "main": "powercheck.js",
   "scripts": {
