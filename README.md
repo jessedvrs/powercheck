@@ -3,7 +3,7 @@ powercheck
 
 [![npm version](https://badge.fury.io/js/powercheck.svg)](https://badge.fury.io/js/powercheck)
 
-Straightforward, light and powerful utility to check types, instances or values. Takes away the dirt, lets you write more solid code and drastically improves code readability.
+Straightforward, zero-dependencies and powerful utility to check types, instances or values. Takes away the dirt, lets you write more solid code and drastically improves code readability.
 
 ```
 npm install powercheck --save
