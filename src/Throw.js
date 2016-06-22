@@ -3,6 +3,9 @@
 import check from './lib/check';
 import _Failure from './lib/classes/Failure';
 import _getErrorClue from './lib/helpers/getErrorClue';
+import optional from './optional';
+import equals from './equals';
+import validate from './validate';
 
 /**
  * Wrap the check function to throw an exception
@@ -13,7 +16,7 @@ import _getErrorClue from './lib/helpers/getErrorClue';
  * @param {any} customError When a function is specified: (value, error) => {any}
  * @returns {Boolean|Exception} Whether the value passes the validator
  */
-export default function powercheckThrow(value, validator, customError) {
+module.exports = function powercheckThrow(value, validator, customError) {
     var result = check(value, validator);
 
     if (result instanceof _Failure) {
@@ -33,3 +36,7 @@ export default function powercheckThrow(value, validator, customError) {
         throw new Error(customError || 'Powercheck: validation failed. ' + (result.clue || ''));
     }
 };
+
+module.exports.optional = optional;
+module.exports.equals = equals;
+module.exports.validate = validate;

@@ -1,6 +1,7 @@
 'use strict';
 
 import check from './lib/check';
+import _Failure from './lib/classes/Failure';
 import Throw from './Throw';
 import optional from './optional';
 import equals from './equals';
@@ -14,13 +15,11 @@ import validate from './validate';
  * @param {Object|Array|Function} validator
  * @returns {Boolean} Whether the value passes the validator
  */
-export default function powercheck(value, validator) {
+module.exports = function powercheck(value, validator) {
     return !(check(value, validator) instanceof _Failure);
 };
 
-export {
-    Throw as Throw,
-    optional as optional,
-    equals as equals,
-    validate as validate
-};
+module.exports.Throw = Throw;
+module.exports.optional = optional;
+module.exports.equals = equals;
+module.exports.validate = validate;
