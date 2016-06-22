@@ -104,7 +104,7 @@ check({
     // -> false
 ```
 
-**N.B.:** extra properies will be accepted
+**N.B.:** extra properies won't be accepted
 
 ```
 check({
@@ -115,7 +115,7 @@ check({
     foo: String,
     baz: String
 });
-    // -> true
+    // -> false
 ```
 
 **N.B.:** mising properies won't be accepted

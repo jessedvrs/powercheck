@@ -54,15 +54,20 @@ export default function check(value, validator) {
         }
 
         // The user uses the object-literal syntax.
-        // So the value must be an object...
+        // So the value must be an object.
         if (!powercheck(value, Object)) {
             return new _Failure('object-literal', {got: _determineDataType(value)});
         }
 
-        // ... and every validator property should exist as
-        // own (!) propery of the given object and be valid.
-        // Not every property of the given object has to
-        // exist in the validator object.
+        // Every object property should exist as validator
+        // property.
+        const unkwownKey = Object.keys(value).find((key) => !validator.hasOwnProperty(key));
+        if (unkwownKey) {
+            return new _Failure('object-literal-unknown-key', {key: unkwownKey});
+        }
+
+        // Every validator property should exist as
+        // propery of the given object and be valid.
         const results = Object.keys(validator).map((key) => check(value.hasOwnProperty(key) && value[key], validator[key]));
         return results.every((result) => {
             return !(result instanceof _Failure);
