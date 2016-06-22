@@ -4,7 +4,7 @@
   "description": "Straightforward, zero-dependencies and powerful utility to check types, instances or values",
   "main": "powercheck.js",
   "scripts": {
-    "compile": "babel src/*.js --presets es2015 --plugins add-module-exports --out-dir ../",
+    "compile": "cd src && babel ./ --out-dir ../",
     "prepublish": "npm run compile"
   },
   "repository": {
