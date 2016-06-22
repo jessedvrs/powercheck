@@ -4,7 +4,8 @@
   "description": "Straightforward, zero-dependencies and powerful utility to check types, instances or values",
   "main": "powercheck.js",
   "scripts": {
-    "compile": "cd src && babel ./ --out-dir ../",
+    "clean": "rm -rf *.js lib",
+    "compile": "npm run clean && cd src && babel ./ --out-dir ../",
     "prepublish": "npm run compile"
   },
   "repository": {
