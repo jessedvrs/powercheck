@@ -12,74 +12,81 @@ npm install powercheck --save
 Usage
 -----
 
+#### Basic
 ```js
 import check from 'powercheck';
 
-/**
- * Type checking
- */
 check('foo', String);
     // -> true
+```
 
-/**
- * Instance checking
- */
+#### Optional value
+```js
+check('foo', check.optional(String));
+    // -> true
+
+check('bar', check.optional(check.equals('bar')));
+    // -> true
+```
+
+**Or:** import "optional" using ES6 modules
+
+```js
+import check, { optional } from 'powercheck';
+
+check('foo', optional(String));
+    // -> true
+```
+
+#### Instance checking
+```js
 check(new Date(), Date);
     // -> true
 
-/**
- * Throw an exception instead
- */
-check.throw('foo', Number);
-    // -> throws an exception
-
-/**
- * More instance checking
- */
 check(new SomeConstructor(), SomeConstructor);
     // -> true
+```
 
-/**
- * Equality checking
- */
+#### Equality checking
+```js
 check('foo', check.equals('bar'));
     // -> false
+```
 
-/**
- * The "optional" wrapper
- */
-check(undefined, check.optional(String));
-    // -> true
 
-/**
- * The "optional" wrapper can wrap anything
- */
-check('bar', check.optional(check.equals('bar')));
-    // -> true
-
-/**
- * Custom validation function
- */
+#### Validation function
+```js
 check('foo', check.validate((value) => {
     return ['foo', 'bar'].indexOf(value) > -1;
 }));
     // -> true
+```
 
-/**
- * Array literal
- */
+```js
+import { isEmail } from 'validator';
+
+check('foo@example.com', check.validate(isEmail));
+    // -> true
+```
+
+### Array literal
+```js
 check(['foo', 'bar'], [String]);
     // -> true
 
-/**
- * Array literal with incorrect value
- */
 check(['foo', 400], [String]);
     // -> false
+```
 
-/**
- * Object literal
- */
+**N.B.:** it's recursive
+
+```js
+check([['foo', 'test'], ['bar']], [[String]]);
+    // -> true
+```
+
+### Object literal
+```js
 check({
     foo: 'bar'
 }, {
@@ -87,9 +94,6 @@ check({
 });
     // -> true
 
-/**
- * Object literal with incorrect value
- */
 check({
     foo: 'bar',
     baz: 'kopz'
@@ -98,10 +102,11 @@ check({
     baz: Number
 });
     // -> false
+```
 
-/**
- * Object literal with extra property
- */
+**N.B.:** extra properies will be accepted
+
+```
 check({
     foo: 'bar',
     baz: 'kopz',
@@ -111,10 +116,11 @@ check({
     baz: String
 });
     // -> true
+```
 
-/**
- * Object literal with missing property
- */
+**N.B.:** mising properies won't be accepted
+
+```js
 check({
     foo: 'bar',
     baz: 'kopz',
@@ -126,11 +132,34 @@ check({
     // -> false
 ```
 
+
+#### Throw exceptions instead
+```js
+import check, { optional } from 'powercheck/Throw';
+
+check('foo', Number);
+    // -> throws an exception
+
+check('foo', Number, new Error('Failed'));
+    // -> throws a custom error
+
+check('foo', Number, (value, error) => {
+    return new Error('Type ' + error.got + ' is invalid. Should be ' + error.expectedType + '.');
+});
+    // -> throws a custom error with extra information
+
+check('foo', String);
+    // -> undefined
+
+check(undefined, optional(Number));
+    // -> undefined
+```
+
 ### API
 
-#### `check(value, validator)` or `check.throw(value, validator)`
+#### `check(value, validator)`
 
-`check()` **returns** a boolean and `check.throw()` **throws** an exception.
+`check()` **returns** a boolean and `check.Throw()` **throws** an exception.
 
 Key | Value
 --- | ----
