@@ -27,13 +27,13 @@ module.exports = function powercheckThrow(value, validator, customError) {
         // The optional `customError` argument can be a function.
         // The given function will then receive the value as first argument
         // and an object with error info as second argument. We expect it
-        // to return anything to be wrapped in `new Error()`.
+        // to return anything to be thrown.
         if (typeof customError === 'function') {
             customError = customError(value, result);
         }
 
         // Make the utility throw an exception.
-        throw new Error(customError || 'Powercheck: validation failed. ' + (result.clue || ''));
+        throw customError || new Error('Powercheck: validation failed. ' + (result.clue || ''));
     }
 };
 
