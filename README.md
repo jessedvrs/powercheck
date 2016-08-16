@@ -53,6 +53,14 @@ check('foo', check.equals('bar'));
     // -> false
 ```
 
+#### OneOf checking
+```js
+check('foo', check.oneOf([Number, Boolean]));
+    // -> false
+
+check('foo', check.oneOf([check.equals(2), String]));
+    // -> true
+```
 
 #### Validation function
 ```js
@@ -164,7 +172,7 @@ check(undefined, optional(Number));
 Key | Value
 --- | ----
 **value** | Anything you want to check the type, instance and/or value for
-**validator** | `String`, `Number`, `Object`, `Array`, `Function`, `Symbol` (ES6), `SomeConstructor`, `check.optional(<validator>)`, `check.validate((value) => trueOrFalse)`, `check.equals(compareValue)`, `[<validator>]`, `{key1: <validator>, ...}`
+**validator** | `String`, `Number`, `Object`, `Array`, `Function`, `Symbol` (ES6), `SomeConstructor`, `check.optional(<validator>)`, `check.validate((value) => trueOrFalse)`, `check.equals(compareValue)`, `check.oneOf([validators])`, `[<validator>]`, `{key1: <validator>, ...}`
 
 ### Questions
 
