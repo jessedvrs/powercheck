@@ -6,6 +6,7 @@ import _getErrorClue from './lib/helpers/getErrorClue';
 import optional from './optional';
 import equals from './equals';
 import validate from './validate';
+import oneOf from './oneOf';
 
 /**
  * Wrap the check function to throw an exception
@@ -42,3 +43,4 @@ module.exports = powercheckThrow;
 module.exports.optional = optional;
 module.exports.equals = equals;
 module.exports.validate = validate;
+module.exports.oneOf = oneOf;

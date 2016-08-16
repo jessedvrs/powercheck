@@ -14,6 +14,8 @@ export default function getErrorClue(value, result) {
             return `Custom validator failed for value "${value}".`;
         case 'wrapper.equals':
             return `The given value "${value}" did not strictly equal "${result.info.expectedValue}".`;
+        case 'wrapper.oneOf':
+            return `The given value "${value}" did not pass one of the ${result.info.amountOfValidators} given validators.`;
         case 'nativetype':
             return `Expected${result.optional ? ` optional` : ``} ${result.info.expectedType}, got ${result.info.got}.`;
         case 'instanceof':
