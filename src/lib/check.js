@@ -66,9 +66,10 @@ export default function check(value, validator) {
             return new _Failure('object-literal-unknown-key', {key: unkwownKey});
         }
 
-        // Every validator property should exist as
-        // propery of the given object and be valid.
-        const results = Object.keys(validator).map((key) => check(value.hasOwnProperty(key) && value[key], validator[key]));
+        // Every validator property should be valid.
+        const results = Object.keys(validator).map((key) => {
+            return check(value[key], validator[key]);
+        });
         return results.every((result) => {
             return !(result instanceof _Failure);
         }) || results.find((result) => result instanceof _Failure);
