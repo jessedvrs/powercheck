@@ -10,7 +10,7 @@
 export default class Failure {
     constructor(type, info) {
         this.type = type;
-        this.info = info;
+        this.info = info || {};
     }
 
     addInfo(info) {

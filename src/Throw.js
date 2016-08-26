@@ -33,8 +33,18 @@ export default function powercheckThrow(value, validator, customError) {
             customError = customError(value, result);
         }
 
+        if (typeof customError === 'string') {
+            customError = new Error(customError);
+        }
+
         // Make the utility throw an exception.
-        throw customError || new Error('Powercheck: validation failed. ' + (result.clue || ''));
+        const error = customError || new Error('Powercheck: validation failed. ' + (result.clue || ''));
+
+        if (error instanceof Error) {
+            error._fromPowercheck = true;
+        }
+
+        throw error;
     }
 };
 

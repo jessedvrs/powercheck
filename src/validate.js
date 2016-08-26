@@ -11,6 +11,16 @@ import _Failure from './lib/classes/Failure';
  */
 export default function validate(validator) {
     return new _Wrapper('validator', (value) => {
-        return validator.call(undefined, value) || new _Failure('wrapper.validator');
+
+        let result;
+        try {
+            result = validator.call(undefined, value);
+        } catch(err) {
+            if(err._fromPowercheck && err.message) {
+                return new _Failure('wrapper.validator', {errorMessage: err.message});
+            }
+        }
+
+        return result || new _Failure('wrapper.validator');
     });
 };
