@@ -16,8 +16,10 @@ export default function validate(validator) {
         try {
             result = validator.call(undefined, value);
         } catch(err) {
-            if(err._fromPowercheck && err.message) {
+            if (err._fromPowercheck && err.message) {
                 return new _Failure('wrapper.validator', {errorMessage: err.message});
+            } else {
+                throw err;
             }
         }
 
