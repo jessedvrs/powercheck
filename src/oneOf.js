@@ -1,5 +1,7 @@
 'use strict';
 
+import powercheck from './';
+import _invalidUse from './lib/helpers/invalidUse';
 import check from './lib/check';
 import _Wrapper from './lib/classes/Wrapper';
 import _Failure from './lib/classes/Failure';
@@ -12,6 +14,9 @@ import _Failure from './lib/classes/Failure';
  */
 export default function oneOf(validators) {
     return new _Wrapper('oneOf', (value) => {
+        if (!powercheck(validators, Array)) {
+            _invalidUse('oneOf() expects an array');
+        }
 
         // Value should pass one of the validators
         const valid = validators.some((validator) =>
