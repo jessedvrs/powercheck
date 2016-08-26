@@ -60,6 +60,15 @@ check('foo', check.oneOf([Number, Boolean]));
 
 check('foo', check.oneOf([check.equals(2), String]));
     // -> true
+
+check('foo', check.oneOf([
+    check.equals('foo'),
+    check.equals('bar')
+]));
+    // -> true
+
+check('foo', check.oneOf(['foo', 'bar'].map(check.equals)));
+    // -> true
 ```
 
 #### Validation function
