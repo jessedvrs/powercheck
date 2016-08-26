@@ -68,7 +68,13 @@ export default function check(value, validator) {
 
         // Every validator property should be valid.
         const results = Object.keys(validator).map((key) => {
-            return check(value[key], validator[key]);
+            const result = check(value[key], validator[key]);
+
+            if (result instanceof _Failure) {
+                result.addInfo({key});
+            }
+
+            return result;
         });
         return results.every((result) => {
             return !(result instanceof _Failure);

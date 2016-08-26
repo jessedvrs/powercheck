@@ -17,7 +17,7 @@ export default function getErrorClue(value, result) {
         case 'wrapper.oneOf':
             return `The given value "${value}" did not pass one of the ${result.info.amountOfValidators} given validators.`;
         case 'nativetype':
-            return `Expected${result.optional ? ` optional` : ``} ${result.info.expectedType}, got ${result.info.got}.`;
+            return `Expected${result.optional ? ` optional` : ``} ${result.info.expectedType}${result.info.key ? ` for key "${result.info.key}"` : ``}, got ${result.info.got}.`;
         case 'instanceof':
             return `Expected${result.optional ? ` optional` : ``} instance of ${result.info.expectedInstance}, got ${result.info.got}.`;
         case 'array-literal':

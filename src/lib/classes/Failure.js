@@ -12,4 +12,8 @@ export default class Failure {
         this.type = type;
         this.info = info;
     }
+
+    addInfo(info) {
+        Object.assign(this.info, info);
+    }
 };
