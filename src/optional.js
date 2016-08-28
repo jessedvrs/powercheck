@@ -18,7 +18,7 @@ export default function optional(validator) {
             result.optional = true;
         }
 
-        // Only allow 'undefined'
-        return typeof value === 'undefined' || result;
+        // Allow 'undefined' and 'null'
+        return typeof value === 'undefined' || value === null || result;
     });
 };
