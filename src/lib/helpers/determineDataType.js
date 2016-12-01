@@ -10,6 +10,10 @@
 export default function determineDataType(value) {
     let type = typeof value;
 
+    if (type === 'object' && value === null) {
+        type = 'null';
+    }
+
     if (type === 'object' && Array.isArray(value)) {
         type = 'array';
     }
