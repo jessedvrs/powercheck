@@ -14,78 +14,87 @@ Usage
 
 #### Basic
 ```js
-import check from 'powercheck';
+import is, { Throw as check } from 'powercheck';
+
+is('foo', String);
+    // -> true
+
+is('foo', Number);
+    // -> false
 
 check('foo', String);
-    // -> true
+    // -> undefined
+
+check('foo', Number);
+    // throws an exception
 ```
 
 #### Optional value
 ```js
-check('foo', check.optional(String));
+is('foo', is.optional(String));
     // -> true
 
-check('bar', check.optional(check.equals('bar')));
+is('bar', is.optional(is.equals('bar')));
     // -> true
 ```
 
 **Or:** import "optional" using ES6 modules
 
 ```js
-import check, { optional } from 'powercheck';
+import is, { optional } from 'powercheck';
 
-check('foo', optional(String));
+is('foo', optional(String));
     // -> true
 ```
 
 #### Instance checking
 ```js
-check(new Date(), Date);
+is(new Date(), Date);
     // -> true
 
-check(new SomeConstructor(), SomeConstructor);
+is(new SomeConstructor(), SomeConstructor);
     // -> true
 ```
 
 #### Equality checking
 ```js
-check('foo', check.equals('bar'));
+is('foo', is.equals('bar'));
     // -> false
 ```
 
 #### OneOf-checking
 ```js
-check('foo', check.oneOf([Number, Boolean]));
+is('foo', is.oneOf([Number, Boolean]));
     // -> false
 
-check('foo', check.oneOf([check.equals(2), String]));
+is('foo', is.oneOf([is.equals(2), String]));
     // -> true
 
-check('foo', check.oneOf([
-    check.equals('foo'),
-    check.equals('bar')
+is('foo', is.oneOf([
+    is.equals('foo'),
+    is.equals('bar')
 ]));
     // -> true
 
-check('foo', check.oneOf(['foo', 'bar'].map(check.equals)));
+is('foo', is.oneOf(['foo', 'bar'].map(is.equals)));
     // -> true
 ```
 
 #### Every-checking
 
 ```js
-check('foo', check.every([String, check.equals('foo')]));
+is('foo', is.every([String, is.equals('foo')]));
     // -> true
 
-check(123, check.every([Number, check.validate(n => n < 100)]));
+is(123, is.every([Number, is.validate(n => n < 100)]));
     // -> false
 ```
 
-**N.B.:** validations will be executed in order. When a validation fails, remaining validations won't be executed. So, in `check.validate()` functions (custom validations), you can rely on the previous validations.
+**N.B.:** validations will be executed in order. When a validation fails, remaining validations won't be executed. So, in `is.validate()` functions (custom validations), you can rely on the previous validations.
 
 #### Validation function
 ```js
-check('foo', check.validate((value) => {
+is('foo', is.validate((value) => {
     return ['foo', 'bar'].indexOf(value) > -1;
 }));
     // -> true
@@ -94,36 +103,36 @@ check('foo', check.validate((value) => {
 ```js
 import { isEmail } from 'validator';
 
-check('foo@example.com', check.validate(isEmail));
+is('foo@example.com', is.validate(isEmail));
     // -> true
 ```
 
 ### Array literal
 ```js
-check(['foo', 'bar'], [String]);
+is(['foo', 'bar'], [String]);
     // -> true
 
-check(['foo', 400], [String]);
+is(['foo', 400], [String]);
     // -> false
 ```
 
 **N.B.:** it's recursive
 
 ```js
-check([['foo', 'test'], ['bar']], [[String]]);
+is([['foo', 'test'], ['bar']], [[String]]);
     // -> true
 ```
 
 ### Object literal
 ```js
-check({
+is({
     foo: 'bar'
 }, {
     foo: String
 });
     // -> true
 
-check({
+is({
     foo: 'bar',
     baz: 'kopz'
 }, {
@@ -136,7 +145,7 @@ check({
 **N.B.:** extra properies won't be accepted
 
 ```
-check({
+is({
     foo: 'bar',
     baz: 'kopz',
     extra: 'boo'
@@ -150,7 +159,7 @@ check({
 **N.B.:** mising properies won't be accepted
 
 ```js
-check({
+is({
     foo: 'bar',
     baz: 'kopz',
 }, {
@@ -164,7 +173,10 @@ check({
 
 #### Throw exceptions instead
 ```js
-import check, { optional } from 'powercheck/Throw';
+import is, { Throw as check } from 'powercheck';
+
+is('foo', Number);
+    // -> false (boolean)
 
 check('foo', Number);
     // -> throws an exception
@@ -178,22 +190,22 @@ check('foo', Number, (value, error) => {
     // -> throws a custom error with extra information
 
 check('foo', String);
-    // -> undefined
+    // -> undefined (no exception has been thrown, nothing is being returned either)
 
-check(undefined, optional(Number));
-    // -> undefined
+check(undefined, is.optional(Number));
+    // -> undefined (no exception has been thrown, nothing is being returned either)
 ```
 
 ### API
 
-#### `check(value, validator)`
+#### `is(value, validator)`
 
-`check()` **returns** a boolean and `check.Throw()` **throws** an exception.
+`is()` **returns** a boolean and `check()` **throws** an exception.
 
 Key | Value
 --- | ----
 **value** | Anything you want to check the type, instance and/or value for
-**validator** | `String`, `Number`, `Object`, `Array`, `Function`, `Symbol` (ES6), `SomeConstructor`, `check.optional(<validator>)`, `check.validate((value) => trueOrFalse)`, `check.equals(compareValue)`, `check.oneOf([validators])`, `[<validator>]`, `{key1: <validator>, ...}`
+**validator** | `String`, `Number`, `Object`, `Array`, `Function`, `Symbol` (ES6), `SomeConstructor`, `is.optional(<validator>)`, `is.validate((value) => trueOrFalse)`, `is.equals(compareValue)`, `is.oneOf([validators])`, `[<validator>]`, `{key1: <validator>, ...}`
 
 ### Questions
 
