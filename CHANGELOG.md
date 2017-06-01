@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.1.1
+
+- Fix broken include statement.
+
 ## 4.1.0
 
 - Add `check.every()`.
