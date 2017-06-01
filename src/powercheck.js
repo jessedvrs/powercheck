@@ -7,6 +7,7 @@ import optional from './optional';
 import equals from './equals';
 import validate from './validate';
 import oneOf from './oneOf';
+import every from './every';
 
 /**
  * Wrap the check function to transform a Failure
@@ -27,3 +28,4 @@ module.exports.optional = optional;
 module.exports.equals = equals;
 module.exports.validate = validate;
 module.exports.oneOf = oneOf;
+module.exports.every = every;
