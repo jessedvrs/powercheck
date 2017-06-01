@@ -53,7 +53,7 @@ check('foo', check.equals('bar'));
     // -> false
 ```
 
-#### OneOf checking
+#### OneOf-checking
 ```js
 check('foo', check.oneOf([Number, Boolean]));
     // -> false
@@ -70,6 +70,18 @@ check('foo', check.oneOf([
 check('foo', check.oneOf(['foo', 'bar'].map(check.equals)));
     // -> true
 ```
+
+#### Every-checking
+
+```js
+check('foo', check.every([String, check.equals('foo')]));
+    // -> true
+
+check(123, check.every([Number, check.validate(n => n < 100)]));
+    // -> false
+```
+
+**N.B.:** validations will be executed in order. When a validation fails, remaining validations won't be executed. So, in `check.validate()` functions (custom validations), you can rely on the previous validations.
 
 #### Validation function
 ```js
