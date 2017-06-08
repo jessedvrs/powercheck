@@ -54,3 +54,4 @@ module.exports.optional = optional;
 module.exports.equals = equals;
 module.exports.validate = validate;
 module.exports.oneOf = oneOf;
+module.exports.every = every;

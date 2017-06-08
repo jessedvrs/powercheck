@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.1.2
+
+- Also export the `every` utility through powercheck.Throw
+
 ## 4.1.1
 
 - Fix broken include statement.
