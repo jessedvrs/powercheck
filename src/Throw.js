@@ -7,6 +7,7 @@ import optional from './optional';
 import equals from './equals';
 import validate from './validate';
 import oneOf from './oneOf';
+import every from './every';
 
 /**
  * Wrap the check function to throw an exception
