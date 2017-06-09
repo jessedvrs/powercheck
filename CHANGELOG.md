@@ -1,8 +1,12 @@
 # Changelog
 
+## 4.1.3
+
+- Fix missing import
+
 ## 4.1.2
 
-- Also export the `every` utility through powercheck.Throw
+- Also export the `every` utility through `powercheck.Throw`
 
 ## 4.1.1
 
